@@ -5,7 +5,7 @@ function getData(){
   }; 
   $.ajax({
     type: "GET",
-    url: "https://imagine-xyz.herokuapp.com/hwthon2015/Imagine/",
+    url: "hwthon2015/Imagine/",
     beforeSend: setHeader,
     success: function(res){
       drawChart(res);
