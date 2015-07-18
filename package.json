@@ -1,0 +1,22 @@
+{
+  "name": "imagineXYZ",
+  "version": "0.2.0",
+  "description": "Imagine Server with MongoDb",
+  "main": "app.js",
+  "engines" : { 
+      "node" : "0.10.31",
+      "npm" : ">=1.4"
+  },
+  "authors": [ "Adrián Sánchez"],
+  "dependencies": {
+    "mongoose": "3.8.15",
+    "express": "3.x",
+    "mongodb": "*",
+    "nodemailer": "*",
+    "cookie-parser": "*",
+    "body-parser": "*",
+    "cron": "*",
+    "xoauth2": "*"
+  }
+}
+
