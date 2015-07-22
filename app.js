@@ -13,27 +13,7 @@ var express = require('express'),
 
 //REST APIS
 var  organizationImagine = require('./services/imagine'),
-    floatTeam = require('./services/float'),
-    electronicsTeam = require('./services/electronicsSolutionDevices'),
-    bulldozerTeam = require('./services/bulldozer'),
-    ovejasTeam = require('./services/ovejasElectricas'),
-    smarTicosTeam = require('./services/smarTicos'),
-    innovationTeam = require('./services/innovationSourceCode'),
-    envitechTeam = require('./services/envitech'),
-    neotronicTeam = require('./services/neotronic'),
-    infotronicTeam = require('./services/infotronicCircuits'),
-    inDeProTeam = require('./services/inDePro'),
-    naranjaTeam = require('./services/laNaranjaMecanica'),
-    frozenbyteTeam = require('./services/frozenbyteKnights'),
-    iwaTeam = require('./services/iwa'),
-    crTeam = require('./services/cr'),
-    novaTeam = require('./services/novaMakers'),
-    aTeam = require('./services/a'),
-    winTeam = require('./services/win'),
-    xTeam = require('./services/x'),
-    yTeam = require('./services/y'),
-    zTeam = require('./services/z');
- 
+    database = require('./services/database');
 
 /*
 Seconds: 0-59
@@ -61,65 +41,166 @@ app.get('/*', function(req, res, next) {
 app.get('/hwthon2015/Imagine/', organizationImagine.getData);
 app.post('/hwthon2015/Imagine/', organizationImagine.newData);
 
-app.post('/Float/', floatTeam.newData);
-app.get('/Float/', floatTeam.getData);
 
-app.post('/ElectronicsSolutionDevices/', electronicsTeam.newData);
-app.get('/ElectronicsSolutionDevices/', electronicsTeam.getData);
+app.post('/ElectronicsSolutionDevices/', function(res,req){
+  database.newData(res,req,'ElectronicsSolutionDevices');
+});
+app.get('/ElectronicsSolutionDevices/', function(res,req){
+  database.getData(res,req,'ElectronicsSolutionDevices');
+});
 
-app.post('/Bulldozer/', bulldozerTeam.newData);
-app.get('/Bulldozer/', bulldozerTeam.getData);
+    
+app.post('/OvejasElectricas/', function(res,req){
+  database.newData(res,req,'OvejasElectricas');
+});
+app.get('/OvejasElectricas/', function(res,req){
+  database.getData(res,req,'OvejasElectricas');
+});
 
-app.post('/OvejasElectricas/', ovejasTeam.newData);
-app.get('/OvejasElectricas/', ovejasTeam.getData);
+    
+app.post('/Bulldozer/', function(res,req){
+  database.newData(res,req,'Bulldozer');
+});
+app.get('/Bulldozer/', function(res,req){
+  database.getData(res,req,'Bulldozer');
+});
 
-app.post('/SmarTicos/', smarTicosTeam.newData);
-app.get('/SmarTicos/', smarTicosTeam.getData);
+    
+app.post('/SmarTicos/', function(res,req){
+  database.newData(res,req,'SmarTicos');
+});
+app.get('/SmarTicos/', function(res,req){
+  database.getData(res,req,'SmarTicos');
+});
 
-app.post('/InnovationSourceCode/', innovationTeam.newData);
-app.get('/InnovationSourceCode/', innovationTeam.getData);
+    
+app.post('/InnovationSourceCode/', function(res,req){
+  database.newData(res,req,'InnovationSourceCode');
+});
+app.get('/InnovationSourceCode/', function(res,req){
+  database.getData(res,req,'InnovationSourceCode');
+});
 
-app.post('/Envitech/', envitechTeam.newData);
-app.get('/Envitech/', envitechTeam.getData);
+    
+app.post('/Envitech/', function(res,req){
+  database.newData(res,req,'Envitech');
+});
+app.get('/Envitech/', function(res,req){
+  database.getData(res,req,'Envitech');
+});
 
-app.post('/Neotronic/', neotronicTeam.newData);
-app.get('/Neotronic/', neotronicTeam.getData);
+    
+app.post('/Neotronic/', function(res,req){
+  database.newData(res,req,'Neotronic');
+});
+app.get('/Neotronic/', function(res,req){
+  database.getData(res,req,'Neotronic');
+});
 
-app.post('/InfotronicCircuits/', infotronicTeam.newData);
-app.get('/InfotronicCircuits/', infotronicTeam.getData);
+   
+app.post('/InfotronicCircuits/', function(res,req){
+  database.newData(res,req,'InfotronicCircuits');
+});
+app.get('/InfotronicCircuits/', function(res,req){
+  database.getData(res,req,'InfotronicCircuits');
+});
 
-app.post('/InDePro/', inDeProTeam.newData);
-app.get('/InDePro/', inDeProTeam.getData);
+    
+app.post('/Float/', function(res,req){
+  database.newData(res,req,'Float');
+});
+app.get('/Float/', function(res,req){
+  database.getData(res,req,'Float');
+});
 
-app.post('/LaNaranjaMecanica/', naranjaTeam.newData);
-app.get('/LaNaranjaMecanica/', naranjaTeam.getData);
+    
+app.post('/InDePro/', function(res,req){
+  database.newData(res,req,'InDePro');
+});
+app.get('/InDePro/', function(res,req){
+  database.getData(res,req,'InDePro');
+});
 
-app.post('/FrozenbyteKnights/', frozenbyteTeam.newData);
-app.get('/FrozenbyteKnights/', frozenbyteTeam.getData);
+    
+app.post('/LaNaranjaMecanica/', function(res,req){
+  database.newData(res,req,'LaNaranjaMecanica');
+});
+app.get('/LaNaranjaMecanica/', function(res,req){
+  database.getData(res,req,'LaNaranjaMecanica');
+});
 
-app.post('/Iwa/', iwaTeam.newData);
-app.get('/Iwa/', iwaTeam.getData);
+    
+app.post('/FrozenbyteKnights/', function(res,req){
+  database.newData(res,req,'FrozenbyteKnights');
+});
+app.get('/FrozenbyteKnights/', function(res,req){
+  database.getData(res,req,'FrozenbyteKnights');
+});
 
-app.post('/TeamCR/', crTeam.newData);
-app.get('/TeamCR/', crTeam.getData);
+    
+app.post('/Iwa/', function(res,req){
+  database.newData(res,req,'Iwa');
+});
+app.get('/Iwa/', function(res,req){
+  database.getData(res,req,'Iwa');
+});
 
-app.post('/NovaMakers/', novaTeam.newData);
-app.get('/NovaMakers/', novaTeam.getData);
+    
+app.post('/TeamCR/', function(res,req){
+  database.newData(res,req,'TeamCR');
+});
+app.get('/TeamCR/', function(res,req){
+  database.getData(res,req,'TeamCR');
+});
 
-app.post('/ATeam/', aTeam.newData);
-app.get('/ATeam/', aTeam.getData);
+    
+app.post('/NovaMakers/', function(res,req){
+  database.newData(res,req,'NovaMakers');
+});
+app.get('/NovaMakers/', function(res,req){
+  database.getData(res,req,'NovaMakers');
+});
 
-app.post('/WIN/', winTeam.newData);
-app.get('/WIN/', winTeam.getData);
 
-app.post('/X/', xTeam.newData);
-app.get('/X/', xTeam.getData);
+app.post('/A/', function(res,req){
+  database.newData(res,req,'A');
+});
+app.get('/A/', function(res,req){
+  database.getData(res,req,'A');
+});
 
-app.post('/Y/', yTeam.newData);
-app.get('/Y/', yTeam.getData);
+    
+app.post('/WIN/', function(res,req){
+  database.newData(res,req,'WIN');
+});
+app.get('/WIN/', function(res,req){
+  database.getData(res,req,'WIN');
+});
 
-app.post('/Z/', zTeam.newData);
-app.get('/Z/', zTeam.getData);
+    
+app.post('/X/', function(res,req){
+  database.newData(res,req,'X');
+});
+app.get('/X/', function(res,req){
+  database.getData(res,req,'X');
+});
+
+    
+app.post('/Y/', function(res,req){
+  database.newData(res,req,'Y');
+});
+app.get('/Y/', function(res,req){
+  database.getData(res,req,'Y');
+});
+
+    
+app.post('/Z/', function(res,req){
+  database.newData(res,req,'Z');
+});
+app.get('/Z/', function(res,req){
+  database.getData(res,req,'Z');
+});
+
 
 var generator = require('xoauth2').createXOAuth2Generator({
     user: 'adriansanchez.logn',
@@ -130,7 +211,6 @@ var generator = require('xoauth2').createXOAuth2Generator({
 });
 
 generator.on('token', function(token){
-    console.log('New token for %s: %s', token.user, token.accessToken);
 });
 
 var transporter = nodemailer.createTransport(({
