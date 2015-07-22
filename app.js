@@ -53,12 +53,9 @@ app.use(bodyParser());
 app.use('/hwthon2015', express.static(__dirname + '/hwthon2015'));
 app.use(express.static(__dirname + '/webpage'));
 
-app.get('/*', function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin');
+/*app.get('/*', function(req, res, next) {
   next();
-});
+});*/
 
 app.get('/hwthon2015/Imagine/', organizationImagine.getData);
 app.post('/hwthon2015/Imagine/', organizationImagine.newData);

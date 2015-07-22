@@ -41,7 +41,7 @@ exports.newData = function(req,res) {
         req.query['_id'] = doc_ids.value.indexes.A;
         db.collection('A').insert(req.query, function(err, doc){
             if(err) res.send(400, err);
-            res.send(200, doc.ops);
+            res.send(200, doc.ops[0]);
         })
     })
 }
