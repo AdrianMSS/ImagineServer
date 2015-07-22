@@ -58,20 +58,18 @@ exports.getData = function(req,res) {
     newQuery[dateString]=1;
 
     db.collection('HardwarethonInfo').findAndModify({},{}, {$inc: newQuery}, {upsert: true, new: true}, function(err, doc_ids){
-        console.log(req.id);
-        console.log(req.cantidad);
-        if(req.id){
+        if(req.query.id){
             console.log('entre ID');
-            var idNumber = parseInt(req.id);
+            var idNumber = parseInt(req.query.id);
             console.log(idNumber);
             db.collection('A').findOne({_id:idNumber}, function(err, doc){
                 if(err) res.send(400, err);
                 res.send(200, doc);
             })
         }
-        else if(req.cantidad){
+        else if(req.query.cantidad){
             console.log('entre cantidad');
-            var quantityNumber = parseInt(req.cantidad);
+            var quantityNumber = parseInt(req.query.cantidad);
             console.log(quantityNumber);
             db.collection('A').aggregate([{$match:{}}, {$sort:{_id:1}}, {$limit:quantityNumber}]).toArray(function(err, doc){
                 if(err) res.send(400, err);
