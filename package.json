@@ -16,7 +16,8 @@
     "cookie-parser": "*",
     "body-parser": "*",
     "cron": "*",
-    "xoauth2": "*"
+    "xoauth2": "*",
+    "cors": "*"
   }
 }
 

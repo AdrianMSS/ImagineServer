@@ -8,7 +8,8 @@ var express = require('express'),
     cookieParser = require('cookie-parser'),
     bodyParser = require('body-parser'),
     nodemailer = require('nodemailer'),
-    cronJob = require('cron').CronJob;
+    cronJob = require('cron').CronJob,
+    cors = require('cors');
 
 //REST APIS
 var  organizationImagine = require('./services/imagine'),
@@ -59,7 +60,7 @@ app.use(express.static(__dirname + '/webpage'));
   next();
 });*/
 
-app.get('/hwthon2015/Imagine/', organizationImagine.getData);
+app.get('/hwthon2015/Imagine/', cors(), organizationImagine.getData);
 app.post('/hwthon2015/Imagine/', organizationImagine.newData);
 
 app.post('/Float/', floatTeam.newData);
