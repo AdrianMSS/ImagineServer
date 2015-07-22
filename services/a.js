@@ -59,7 +59,7 @@ exports.getData = function(req,res) {
 
     db.collection('HardwarethonInfo').findAndModify({},{}, {$inc: newQuery}, {upsert: true, new: true}, function(err, doc_ids){
         if(req.id){
-            db.collection('A').findOne({_id=req.id}, function(err, doc){
+            db.collection('A').findOne({_id:req.id}, function(err, doc){
                 if(err) res.send(400, err);
                 res.send(200, doc);
             })
@@ -71,7 +71,7 @@ exports.getData = function(req,res) {
             })   
         }
         else{
-            db.collection('A').find(req.query, {_id:0}).toArray(function(err, doc){
+            db.collection('A').find(req.query, {_id:1}).toArray(function(err, doc){
                 if(err) res.send(400, err);
                 res.send(200, doc);
             })
