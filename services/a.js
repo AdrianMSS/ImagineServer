@@ -35,10 +35,11 @@ exports.newData = function(req,res) {
         newQuery = {};
     newQuery[dateString]=1;
     newQuery["indexes.A"]=1;
-    
+    now = new Date();
+    now.setHours( now.getHours() - 6 );
     db.collection('HardwarethonInfo').findAndModify({},{indexes:1},{$inc:newQuery} , {upsert: true, new: true}, function(err, doc_ids){
-        //console.log(doc_ids);
         req.query['_id'] = doc_ids.value.indexes.A;
+        req.query['fecha'] = now;
         db.collection('A').insert(req.query, function(err, doc){
             if(err) res.send(400, err);
             res.send(200, doc.ops[0]);
@@ -57,9 +58,23 @@ exports.getData = function(req,res) {
     newQuery[dateString]=1;
 
     db.collection('HardwarethonInfo').findAndModify({},{}, {$inc: newQuery}, {upsert: true, new: true}, function(err, doc_ids){
-        db.collection('A').find({}, {_id:0}).toArray(function(err, doc){
-            if(err) res.send(400, err);
-            res.send(200, doc);
-        })
+        if(req.id){
+            db.collection('A').findOne({_id=req.id}, function(err, doc){
+                if(err) res.send(400, err);
+                res.send(200, doc);
+            })
+        }
+        else if(req.cantidad){
+            db.collection('A').aggregate([{$sort:{_id:1}}, {$limit:req.cantidad}], function(err, doc){
+                if(err) res.send(400, err);
+                res.send(200, doc);
+            })   
+        }
+        else{
+            db.collection('A').find(req.query, {_id:0}).toArray(function(err, doc){
+                if(err) res.send(400, err);
+                res.send(200, doc);
+            })
+        }
     })
 }

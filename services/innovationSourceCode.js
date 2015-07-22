@@ -31,15 +31,18 @@ exports.newData = function(req,res) {
     now.setMinutes(0);
     now.setSeconds(0);
     now.setMilliseconds(0);
-    var dateString="logs.post."+now+'.InnovationSourceCode',
+    var dateString="logs.post."+now+".InnovationSourceCode",
         newQuery = {};
     newQuery[dateString]=1;
     newQuery["indexes.InnovationSourceCode"]=1;
-    
-    db.collection('HardwarethonInfo').findAndModify({},{},{$inc:newQuery} , {upsert: true, new: true}, function(err, doc_ids){
+    now = new Date();
+    now.setHours( now.getHours() - 6 );
+    db.collection('HardwarethonInfo').findAndModify({},{indexes:1},{$inc:newQuery} , {upsert: true, new: true}, function(err, doc_ids){
+        req.query['_id'] = doc_ids.value.indexes.InnovationSourceCode;
+        req.query['fecha'] = now;
         db.collection('InnovationSourceCode').insert(req.query, function(err, doc){
             if(err) res.send(400, err);
-            res.send(200, {"info":"Datos insertados correctamente."});
+            res.send(200, doc.ops[0]);
         })
     })
 }
