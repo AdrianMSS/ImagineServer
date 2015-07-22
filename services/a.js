@@ -60,6 +60,7 @@ exports.getData = function(req,res) {
     db.collection('HardwarethonInfo').findAndModify({},{}, {$inc: newQuery}, {upsert: true, new: true}, function(err, doc_ids){
         if(req.id){
             var idNumber = parseInt(req.id);
+            console.log(idNumber);
             db.collection('A').findOne({_id:idNumber}, function(err, doc){
                 if(err) res.send(400, err);
                 res.send(200, doc);
@@ -67,13 +68,14 @@ exports.getData = function(req,res) {
         }
         else if(req.cantidad){
             var quantityNumber = parseInt(req.cantidad);
-            db.collection('A').aggregate([{$sort:{_id:1}}, {$limit:quantityNumber}], function(err, doc){
+            console.log(quantityNumber);
+            db.collection('A').aggregate([{$match:{}}, {$sort:{_id:1}}, {$limit:quantityNumber}]).toArray(function(err, doc){
                 if(err) res.send(400, err);
                 res.send(200, doc);
             })   
         }
         else{
-            db.collection('A').find(req.query, {_id:1}).toArray(function(err, doc){
+            db.collection('A').find(req.query).toArray(function(err, doc){
                 if(err) res.send(400, err);
                 res.send(200, doc);
             })
