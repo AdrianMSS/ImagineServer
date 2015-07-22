@@ -38,11 +38,10 @@ exports.newData = function(req,res) {
     
     db.collection('HardwarethonInfo').findAndModify({},{indexes:1},{$inc:newQuery} , {upsert: true, new: true}, function(err, doc_ids){
         //console.log(doc_ids);
-        req.query['ID'] = doc_ids.value.indexes.A;
+        req.query['_id'] = doc_ids.value.indexes.A;
         db.collection('A').insert(req.query, function(err, doc){
-            console.log(doc);
             if(err) res.send(400, err);
-            res.send(200, {"info":"Datos insertados correctamente."});
+            res.send(200, doc.ops);
         })
     })
 }
