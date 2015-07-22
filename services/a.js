@@ -36,7 +36,9 @@ exports.newData = function(req,res) {
     newQuery[dateString]=1;
     newQuery["indexes.A"]=1;
     
-    db.collection('HardwarethonInfo').findAndModify({},{},{$inc:newQuery} , {upsert: true, new: true}, function(err, doc_ids){
+    db.collection('HardwarethonInfo').findAndModify({},{indexes:1},{$inc:newQuery} , {upsert: true, new: true}, function(err, doc_ids){
+        console.log('Los indices son ' + doc_ids);
+        req.query['ID'] = doc_ids.indexes.A;
         db.collection('A').insert(req.query, function(err, doc){
             if(err) res.send(400, err);
             res.send(200, {"info":"Datos insertados correctamente."});

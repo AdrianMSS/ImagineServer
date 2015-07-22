@@ -28,6 +28,9 @@ mongo.MongoClient.connect(uristring, function(err, database) {
 exports.getData = function(req,res) {
   db.collection('HardwarethonInfo').find({}, {_id:0}).toArray(function(err, doc){
       if(err) res.send(400, err);
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+      res.header('Access-Control-Allow-Headers', 'Content-Type, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin');
       res.send(200, doc);
   })
 }
