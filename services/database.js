@@ -41,7 +41,7 @@ exports.newData = function(req,res, team) {
     now.setSeconds(0);
     now.setMilliseconds(0);
     db.collection('HardwarethonInfo').findAndModify({},{indexes:1},{$inc:newQuery} , {upsert: true, new: true}, function(err, doc_ids){
-        req.query['_id'] = doc_ids.value.indexes.A;
+        req.query['_id'] = doc_ids.value.indexes[team];
         req.query['fecha'] = now;
         db.collection(team).insert(req.query, function(err, doc){
             if(err) res.send(400, err);
