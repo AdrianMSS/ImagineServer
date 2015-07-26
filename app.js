@@ -33,7 +33,7 @@ app.use(bodyParser());
 app.use('/hwthon2015', express.static(__dirname + '/hwthon2015'));
 app.use(express.static(__dirname + '/webpage'));
 
-app.get('/*', function(req, res, next) {
+app.all('*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
