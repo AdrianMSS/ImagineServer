@@ -123,6 +123,15 @@ exports.getData2 = function(req,res, team) {
                 res.send(200, doc);
             })   
         }
+        else if(req.query.r && req.query.cantidad){
+            var quantityNumber = parseInt(req.query.cantidad);
+            var maesQuery = {};
+                maesQuery['r']=req.query.r;
+            db.collection(team).aggregate([{$match:maesQuery}, {$sort:{_id:-1}}, {$limit:quantityNumber}]).toArray(function(err, doc){
+                if(err) res.send(400, err);
+                res.send(200, doc);
+            })   
+        }
         else if(req.query.cantidad){
             var quantityNumber = parseInt(req.query.cantidad);
             db.collection(team).aggregate([{$match:{}}, {$sort:{_id:-1}}, {$limit:quantityNumber}]).toArray(function(err, doc){
