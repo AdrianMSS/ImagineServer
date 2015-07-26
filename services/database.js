@@ -104,10 +104,11 @@ exports.getData2 = function(req,res, team) {
                 res.send(200, doc);
             })
         }
-        else if(req.query.Modulo && req.query.cantidad){
+        else if(req.query.Modulo && req.query.ID && req.query.cantidad){
             var quantityNumber = parseInt(req.query.cantidad);
             var bullQuery = {};
-                bullQuery['Modulo']=req.query.Modulo;
+            bullQuery['Modulo']=req.query.Modulo;
+            bullQuery['ID']=req.query.ID;
             db.collection(team).aggregate([{$match:bullQuery}, {$sort:{_id:-1}}, {$limit:quantityNumber}]).toArray(function(err, doc){
                 if(err) res.send(400, err);
                 res.send(200, doc);
