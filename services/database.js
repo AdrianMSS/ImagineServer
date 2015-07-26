@@ -116,7 +116,7 @@ exports.getData2 = function(req,res, team) {
         }
         else if(req.query.Arduino && req.query.cantidad){
             var quantityNumber = parseInt(req.query.cantidad);
-            var bullQuery = {};
+            var maesQuery = {};
                 maesQuery['Modulo']=req.query.Arduino;
             db.collection(team).aggregate([{$match:maesQuery}, {$sort:{_id:-1}}, {$limit:quantityNumber}]).toArray(function(err, doc){
                 if(err) res.send(400, err);
