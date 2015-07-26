@@ -62,7 +62,7 @@ app.post('/Bulldozer/', function(res,req){
   database.newData(res,req,'Bulldozer');
 });
 app.get('/Bulldozer/', function(res,req){
-  database.getData(res,req,'Bulldozer');
+  database.getData2(res,req,'Bulldozer');
 });
 
     
@@ -102,7 +102,7 @@ app.post('/InfotronicCircuits/', function(res,req){
   database.newData(res,req,'InfotronicCircuits');
 });
 app.get('/InfotronicCircuits/', function(res,req){
-  database.getData(res,req,'InfotronicCircuits');
+  database.getData2(res,req,'InfotronicCircuits');
 });
 
     

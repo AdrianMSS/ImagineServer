@@ -84,3 +84,56 @@ exports.getData = function(req,res, team) {
         }
     })
 }
+
+exports.getData2 = function(req,res, team) {
+    var now = new Date();
+    now.setHours( now.getHours() - 6 );
+    now.setMinutes(0);
+    now.setSeconds(0);
+    now.setMilliseconds(0);
+    var dateString='logs.get.'+now+'.'+team,
+        newQuery = {},
+        queryField = 'indexes.'+team;
+    newQuery[dateString]=1;
+
+    db.collection('HardwarethonInfo').findAndModify({},{}, {$inc: newQuery}, {upsert: true, new: true}, function(err, doc_ids){
+        if(req.query.id){
+            var idNumber = parseInt(req.query.id);
+            db.collection(team).findOne({_id:idNumber}, function(err, doc){
+                if(err) res.send(400, err);
+                res.send(200, doc);
+            })
+        }
+        else if(req.query.Modulo && req.query.cantidad){
+            var quantityNumber = parseInt(req.query.cantidad);
+            var bullQuery = {};
+                bullQuery['Modulo']=req.query.Modulo;
+            db.collection(team).aggregate([{$match:bullQuery}, {$sort:{_id:-1}}, {$limit:quantityNumber}]).toArray(function(err, doc){
+                if(err) res.send(400, err);
+                res.send(200, doc);
+            })   
+        }
+        else if(req.query.Arduino && req.query.cantidad){
+            var quantityNumber = parseInt(req.query.cantidad);
+            var bullQuery = {};
+                maesQuery['Modulo']=req.query.Arduino;
+            db.collection(team).aggregate([{$match:maesQuery}, {$sort:{_id:-1}}, {$limit:quantityNumber}]).toArray(function(err, doc){
+                if(err) res.send(400, err);
+                res.send(200, doc);
+            })   
+        }
+        else if(req.query.cantidad){
+            var quantityNumber = parseInt(req.query.cantidad);
+            db.collection(team).aggregate([{$match:{}}, {$sort:{_id:-1}}, {$limit:quantityNumber}]).toArray(function(err, doc){
+                if(err) res.send(400, err);
+                res.send(200, doc);
+            })   
+        }
+        else{
+            db.collection(team).find(req.query).toArray(function(err, doc){
+                if(err) res.send(400, err);
+                res.send(200, doc);
+            })
+        }
+    })
+}
