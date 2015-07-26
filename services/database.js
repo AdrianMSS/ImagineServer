@@ -71,7 +71,7 @@ exports.getData = function(req,res, team) {
         }
         else if(req.query.cantidad){
             var quantityNumber = parseInt(req.query.cantidad);
-            db.collection(team).aggregate([{$match:{}}, {$sort:{_id:1}}, {$limit:quantityNumber}]).toArray(function(err, doc){
+            db.collection(team).aggregate([{$match:{}}, {$sort:{_id:-1}}, {$limit:quantityNumber}]).toArray(function(err, doc){
                 if(err) res.send(400, err);
                 res.send(200, doc);
             })   
