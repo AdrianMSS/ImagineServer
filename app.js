@@ -22,10 +22,10 @@ Hours: 0-23
 Day of Month: 1-31
 Months: 0-11
 Day of Week: 0-6*/
-new cronJob('0 59 * * * *', function(){
+/*new cronJob('0 59 * * * *', function(){
         //console.log("CronJob")
         organizationImagine.hourScript();
-    }, null, true, null);
+    }, null, true, null);*/
  
 var app = express();
 app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
@@ -42,7 +42,7 @@ app.get('/hwthon2015/Imagine/', organizationImagine.getData);
 app.post('/hwthon2015/Imagine/', organizationImagine.newData);
 
 
-app.post('/ElectronicsSolutionDevices/', function(res,req){
+/*app.post('/ElectronicsSolutionDevices/', function(res,req){
   database.newData(res,req,'ElectronicsSolutionDevices');
 });
 app.get('/ElectronicsSolutionDevices/', function(res,req){
@@ -199,7 +199,7 @@ app.post('/Z/', function(res,req){
 });
 app.get('/Z/', function(res,req){
   database.getData(res,req,'Z');
-});
+});*/
 
 
 var generator = require('xoauth2').createXOAuth2Generator({
