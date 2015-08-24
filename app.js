@@ -81,14 +81,14 @@ app.get('/InnovationSourceCode/', function(res,req){
   database.getData(res,req,'InnovationSourceCode');
 });
 
-    
+*/    
 app.post('/Envitech/', function(res,req){
   database.newData(res,req,'Envitech');
 });
 app.get('/Envitech/', function(res,req){
   database.getData(res,req,'Envitech');
 });
-
+/*
     
 app.post('/Neotronic/', function(res,req){
   database.newData(res,req,'Neotronic');
