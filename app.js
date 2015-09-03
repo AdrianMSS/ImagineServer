@@ -30,7 +30,7 @@ Day of Week: 0-6*/
 var app = express();
 app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
 app.use(bodyParser());
-app.use('/hwthon2015', express.static(__dirname + '/hwthon2015'));
+//app.use('/hwthon2015', express.static(__dirname + '/hwthon2015'));
 app.use(express.static(__dirname + '/webpage'));
 
 app.get('/*', function(req, res, next) {
@@ -38,8 +38,8 @@ app.get('/*', function(req, res, next) {
   next();
 });
 
-app.get('/hwthon2015/Imagine/', organizationImagine.getData);
-app.post('/hwthon2015/Imagine/', organizationImagine.newData);
+//app.get('/hwthon2015/Imagine/', organizationImagine.getData);
+//app.post('/hwthon2015/Imagine/', organizationImagine.newData);
 
 
 /*app.post('/ElectronicsSolutionDevices/', function(res,req){
@@ -81,14 +81,14 @@ app.get('/InnovationSourceCode/', function(res,req){
   database.getData(res,req,'InnovationSourceCode');
 });
 
-*/    
+    
 app.post('/Envitech/', function(res,req){
   database.newData(res,req,'Envitech');
 });
 app.get('/Envitech/', function(res,req){
   database.getData(res,req,'Envitech');
 });
-/*
+
     
 app.post('/Neotronic/', function(res,req){
   database.newData(res,req,'Neotronic');
