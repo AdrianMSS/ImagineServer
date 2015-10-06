@@ -223,9 +223,9 @@ var transporter = nodemailer.createTransport(({
 app.post('/email/', function (req, res) {
     var fecha = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
     mailOptions = {
-    to: 'sesamaua@gmail.com', // receiver
+    to: 'contact@imaginexyz.com', // receiver
      subject: 'ImagineXYZ: Desde la pagina web - Fecha: ' + fecha, // subject
-     text: 'Email: ' + req.body['email'] + '. \n'+ 'Name: ' + req.body['name'] + '. \n' + 'Subject: ' + req.body['subject'] + '. \n' + 'Message: ' + req.body['message'] // body
+     text: 'Email: ' + req.body['email'] + '. \n'+ 'Name: ' + req.body['name'] + '. \n'  + 'Message: ' + req.body['message'] // body
      };
   transporter.sendMail(mailOptions, function(error, info){
     if(error){
