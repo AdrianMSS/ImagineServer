@@ -1854,21 +1854,27 @@ button.close{
 }
 .progressbar-bar{
   width: 0%;
+  color: transparent;
 }
 .progressbar1{
   width: 90%;
+  color: white;
 }
 .progressbar2{
   width: 86%;
+  color: white;
 }
 .progressbar3{
   width: 93%;
+  color: white;
 }
 .progressbar4{
   width: 89%;
+  color: white;
 }
 .progressbar5{
   width: 97%;
+  color: white;
 }
 .memberDiv{
   width: 282px;
@@ -1914,4 +1920,7 @@ button.close{
 }
 #memberErnesto:hover{
   background-image: url('../images/team/1.png'); 
+}
+.center{
+  text-align: center;
 }

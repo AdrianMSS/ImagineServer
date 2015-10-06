@@ -561,9 +561,7 @@ header .header-content .header-content-inner p {
 }
 .progressbar-bar {
     height: 40px;
-    color: #FFF;
     background: teal;
-    color: #FFF;
     font-size: 12px;
     font-weight: 400;
     line-height: 40px;
