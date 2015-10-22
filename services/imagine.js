@@ -25,20 +25,22 @@ mongo.MongoClient.connect(uristring, function(err, database) {
 });
 
 
-exports.getData = function(req,res) {db.collection('HardwarethonInfo').find({}, {_id:0}).toArray(function(err, doc){
+exports.getData = function(req,res) {db.collection('Imagine').find({}, {_id:0}).toArray(function(err, doc){
       if(err) res.send(400, err);
       res.send(200, doc);
   })
 }
 
 exports.newData = function(req,res) {
-   db.collection('Imagine').insert(req.query, function(err, doc){
-        if(err) res.send(400, err);
-        res.send(200, {"info":"Datos insertados correctamente."});
-    })
+  var resource = req.query;
+  resource['Date'] = new Date();
+  db.collection('Imagine').insert(resource, function(err, doc){
+    if(err) res.send(400, err);
+    res.send(200, resource);
+  })
 }
 
-exports.hourScript = function(){
+/*exports.hourScript = function(){
   var newQuery = {},
     teamsArray = ['ElectronicsSolutionDevices','Bulldozer','OvejasElectricas','SmarTicos','InnovationSourceCode',
     'Envitech','Neotronic','InfotronicCircuits','Float','InDePro','LaNaranjaMecanica','FrozenbyteKnights','Iwa',
@@ -61,4 +63,4 @@ exports.hourScript = function(){
     if(err) console.log(err);
     console.log(doc);
   })
-}
+}*/

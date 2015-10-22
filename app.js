@@ -13,7 +13,8 @@ var express = require('express'),
 
 //REST APIS
 var  organizationImagine = require('./services/imagine'),
-    database = require('./services/database');
+    database = require('./services/database'),
+    googleApi = require('./services/google');
 
 /*
 Seconds: 0-59
@@ -32,14 +33,16 @@ app.use(express.logger('dev'));     /* 'default', 'short', 'tiny', 'dev' */
 app.use(bodyParser());
 //app.use('/hwthon2015', express.static(__dirname + '/hwthon2015'));
 app.use(express.static(__dirname + '/webpage'));
+app.use('/whatsnear', express.static(__dirname + '/whatsnear'));
 
 app.get('/*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   next();
 });
 
-//app.get('/hwthon2015/Imagine/', organizationImagine.getData);
-//app.post('/hwthon2015/Imagine/', organizationImagine.newData);
+app.get('/whatsnear/pos', googleApi.getPos);
+app.get('/hwthon2015/pos', organizationImagine.getData);
+app.post('/hwthon2015/pos', organizationImagine.newData);
 
 
 /*app.post('/ElectronicsSolutionDevices/', function(res,req){
