@@ -41,8 +41,8 @@ app.get('/*', function(req, res, next) {
 });
 
 app.get('/whatsnear/pos', googleApi.getPos);
-app.get('/hwthon2015/pos', organizationImagine.getData);
-app.post('/hwthon2015/pos', organizationImagine.newData);
+app.get('/rentacar/pos', organizationImagine.getData);
+app.post('/rentacar/pos', organizationImagine.newData);
 
 
 /*app.post('/ElectronicsSolutionDevices/', function(res,req){
