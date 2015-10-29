@@ -14,6 +14,11 @@ var uristring =
   'mongodb://localhost/Hardwarethon';
 
 
+Date.prototype.addHours= function(h){
+    this.setHours(this.getHours()+h);
+    return this;
+}
+
 mongo.MongoClient.connect(uristring, function(err, database) {
   if(!err) {
     db = database;
@@ -31,14 +36,66 @@ exports.getData = function(req,res) {db.collection('Imagine').find({}, {_id:0}).
   })
 }
 
+nmeaTOgps = function(pos, type){
+  var x = 0,
+    mop = 1;
+  if(parseFloat(pos)<0){
+    x = 1;
+    mop = -1;
+  }
+  if(type===1){
+    var dd = parseInt(pos[0+x]),
+      mm = parseFloat(pos.slice(1+x)),
+      latitude = (dd + (mm / 60)) * mop;
+      return latitude;
+  }
+  if(type===2){
+    var ddd = parseInt(pos[0+x]+pos[1+x]),
+      mm = parseFloat(pos.slice(2+x)),
+      latitude = (ddd + (mm / 60)) * mop;
+      return latitude;
+  }
+}
+
 exports.newData = function(req,res) {
   var resource = req.query;
-  resource['Date'] = new Date();
-  db.collection('Imagine').insert(resource, function(err, doc){
-    if(err) res.send(400, err);
-    res.send(200, resource);
-  })
+  resource['Date'] = new Date().addHours(-6);
+
+  var key = 'AIzaSyBGuNB7PRusaF7JKSq-t_crKWKP6H3o3sg',
+    lat = nmeaTOgps(req.query.lat, 1),
+    longi = nmeaTOgps(req.query.long, 2),
+    v = req.query.v;
+
+  var radius = 500;
+
+  var https = require('https');
+  var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" + "key=" + key + "&location=" + lat + ',' + longi + "&radius=" + radius;
+    console.log(url);
+  https.get(url, function(response) {
+    var body ='';
+    response.on('data', function(chunk) {
+      body += chunk;
+    });
+
+    response.on('end', function() {
+      console.log(body);
+      var places = JSON.parse(body);
+      var locations = places.results;
+      //console.log(locations);
+      var randLoc = locations[Math.floor(Math.random() * locations.length)];
+      resource['chanteCerca'] = randLoc.name;
+      resource['lat'] = lat;
+      resource['long'] = longi;
+      db.collection('Imagine').insert(resource, function(err, doc){
+        if(err) res.send(400, err);
+        res.send(200, resource);
+      });
+    });
+  }).on('error', function(e) {
+    console.log("Got error: " + e.message);
+  });
 }
+
 
 /*exports.hourScript = function(){
   var newQuery = {},
