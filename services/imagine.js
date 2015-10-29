@@ -66,7 +66,7 @@ exports.newData = function(req,res) {
     longi = nmeaTOgps(req.query.long, 2),
     v = req.query.v;
 
-  var radius = 500;
+  var radius = 50;
 
   var https = require('https');
   var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?" + "key=" + key + "&location=" + lat + ',' + longi + "&radius=" + radius;
