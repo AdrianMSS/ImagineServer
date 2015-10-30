@@ -96,7 +96,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   var waypts = [],
     origin = {lat: placesDB[0].lat, lng: placesDB[0].long},
     destination = {lat: placesDB[placesDB.length-1].lat, lng: placesDB[placesDB.length-1].long};
-  for (var i = 0; i < placesDB.length; i++) {
+  for (var i = 0; i < 5; i++) {
     waypts.push({
       location: new google.maps.LatLng(placesDB[i].lat, placesDB[i].long),
       stopover: true
@@ -107,7 +107,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   console.log(origin);
   console.log(destination);
   console.log(waypts);
-  
+
   directionsService.route({
     origin: origin,
     destination: destination,
