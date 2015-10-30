@@ -40,7 +40,7 @@ app.get('/*', function(req, res, next) {
   next();
 });
 
-app.get('/whatsnear/pos', googleApi.getPos);
+app.get('/whatsnear/pos', organizationImagine.getData);
 app.get('/rentacar/pos', organizationImagine.getData);
 app.post('/rentacar/pos', organizationImagine.newData);
 

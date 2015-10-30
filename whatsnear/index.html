@@ -14,14 +14,33 @@
         height: 100%;
       }
     </style>
+    <script src="assets/js/jquery.min.js"></script>
     <script>
 var map;
 var infowindow;
 var placesNames = [];
+var placesDB = [];
+
+function checkRoute(){
+  var setHeader = function (req) {
+    req.setRequestHeader('content-type', 'application/json'); 
+    req.setRequestHeader('accept', 'application/json'); 
+  }; 
+  $.ajax({
+    type: "GET",
+    url: "pos/",
+    beforeSend: setHeader,
+    success: function(res){
+      placesDB = res;
+      initMap();
+    }
+  });
+}
 
 function initMap() {
   //var pyrmont = {lat: 9.6146658, lng: -84.6297220}; //Jacó
-  var pyrmont = {lat: 9.854954, lng: -83.909053}; //TEC
+  console.log(placesDB);
+  var pyrmont = {lat: placesDB[0].lat, lng: placesDB[0].long}; //TEC
 
   map = new google.maps.Map(document.getElementById('map'), {
     center: pyrmont,
@@ -30,16 +49,25 @@ function initMap() {
 
   infowindow = new google.maps.InfoWindow();
 
-  var service = new google.maps.places.PlacesService(map);
+  for (var i = 0; i < placesDB.length; i++) {
+    /*var placeName = placesDB[i].name + ' ' + placesDB[i].vicinity;
+    if(placesNames.indexOf(placeName) < 0){
+      placesNames.push(placeName);
+    }*/
+    createMarker(placesDB[i]);
+  }
+
+  /*var service = new google.maps.places.PlacesService(map);
   service.nearbySearch({
     location: pyrmont,
     radius: 200
-  }, callback);
+  }, callback);*/
 }
 
 function callback(results, status) {
   if (status === google.maps.places.PlacesServiceStatus.OK) {
     for (var i = 0; i < results.length; i++) {
+      console.log(results[i].geometry.location.lat());
       var placeName = results[i].name + ' ' + results[i].vicinity;
       if(placesNames.indexOf(placeName) < 0){
         placesNames.push(placeName);
@@ -47,18 +75,17 @@ function callback(results, status) {
       createMarker(results[i]);
     }
   }
-  console.log(placesNames);
 }
 
 function createMarker(place) {
-  var placeLoc = place.geometry.location;
+  var placeLoc = {lat:place.lat, lng:place.long};
   var marker = new google.maps.Marker({
     map: map,
-    position: place.geometry.location
+    position: placeLoc
   });
 
   google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent(place.name);
+    infowindow.setContent(place.chanteCerca);
     infowindow.open(map, this);
   });
 }
@@ -67,6 +94,6 @@ function createMarker(place) {
   </head>
   <body>
     <div id="map"></div>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGuNB7PRusaF7JKSq-t_crKWKP6H3o3sg&signed_in=true&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBGuNB7PRusaF7JKSq-t_crKWKP6H3o3sg&signed_in=true&libraries=places&callback=checkRoute" async defer></script>
   </body>
 </html>
