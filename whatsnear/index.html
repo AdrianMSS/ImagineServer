@@ -93,18 +93,24 @@ function initMap() {
 }
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-  var waypts = [];
-
-  /*for (var i = 1; i < placesDB.length; i++) {
+  var waypts = [],
+    origin = {lat: placesDB[0].lat, lng: placesDB[0].long},
+    destination = {lat: placesDB[placesDB.length-1].lat, lng: placesDB[placesDB.length-1].long};
+  for (var i = 0; i < placesDB.length; i++) {
     waypts.push({
       location: new google.maps.LatLng(placesDB[i].lat, placesDB[i].long),
       stopover: true
     });
-  }*/
+  }
 
+
+  console.log(origin);
+  console.log(destination);
+  console.log(waypts);
+  
   directionsService.route({
-    origin: {lat: placesDB[0].lat, lng: placesDB[0].long},
-    destination: {lat: placesDB[placesDB.length-1].lat, lng: placesDB[placesDB.length-1].long},
+    origin: origin,
+    destination: destination,
     waypoints: waypts,
     optimizeWaypoints: false,
     travelMode: google.maps.TravelMode.DRIVING
