@@ -118,7 +118,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
       }, function(response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
           directionsDisplay.setDirections(response);
-          setTimeout("wait = true", 2000);
+          setTimeout('wait = false', 2000);
         } else {
           window.alert('Directions request failed due to ' + status);
         }
