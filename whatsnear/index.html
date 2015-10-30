@@ -97,7 +97,8 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     origin = {lat: placesDB[0].lat, lng: placesDB[0].long},
     destination = {lat: placesDB[placesDB.length-1].lat, lng: placesDB[placesDB.length-1].long},
     between = Math.floor(placesDB.length/8);
-  for (var i = 0; waypts.length < 8; i+between) {
+  for (var i = 1; waypts.length < 8; i+between) {
+    console.log(i+between);
     waypts.push({
       location: new google.maps.LatLng(placesDB[i].lat, placesDB[i].long),
       stopover: true
