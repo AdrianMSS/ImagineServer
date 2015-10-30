@@ -95,12 +95,12 @@ function initMap() {
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   var waypts = [];
 
-  for (var i = 1; i < placesDB.length; i++) {
+  /*for (var i = 1; i < placesDB.length; i++) {
     waypts.push({
       location: new google.maps.LatLng(placesDB[i].lat, placesDB[i].long),
       stopover: true
     });
-  }
+  }*/
 
   directionsService.route({
     origin: {lat: placesDB[0].lat, lng: placesDB[0].long},
