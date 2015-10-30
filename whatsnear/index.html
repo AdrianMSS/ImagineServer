@@ -16,9 +16,9 @@
     </style>
     <script src="assets/js/jquery.min.js"></script>
     <script>
-var map;
+/*var map;
 var infowindow;
-var placesNames = [];
+var placesNames = [];*/
 var placesDB = [];
 
 function checkRoute(){
@@ -36,7 +36,7 @@ function checkRoute(){
     }
   });
 }
-
+/*
 function initMap() {
   //var pyrmont = {lat: 9.6146658, lng: -84.6297220}; //Jacó
   console.log(placesDB);
@@ -50,18 +50,8 @@ function initMap() {
   infowindow = new google.maps.InfoWindow();
 
   for (var i = 0; i < placesDB.length; i++) {
-    /*var placeName = placesDB[i].name + ' ' + placesDB[i].vicinity;
-    if(placesNames.indexOf(placeName) < 0){
-      placesNames.push(placeName);
-    }*/
     createMarker(placesDB[i]);
   }
-
-  /*var service = new google.maps.places.PlacesService(map);
-  service.nearbySearch({
-    location: pyrmont,
-    radius: 200
-  }, callback);*/
 }
 
 function callback(results, status) {
@@ -79,14 +69,51 @@ function callback(results, status) {
 
 function createMarker(place) {
   var placeLoc = {lat:place.lat, lng:place.long};
-  var marker = new google.maps.Marker({
+  var marker = new google.maps.DirectionsWaypoint({
     map: map,
-    position: placeLoc
+    location: placeLoc
   });
 
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(place.chanteCerca);
     infowindow.open(map, this);
+  });
+}*/
+function initMap() {
+  var directionsService = new google.maps.DirectionsService;
+  var directionsDisplay = new google.maps.DirectionsRenderer;
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 6,
+    center: {lat: placesDB[0].lat, lng: placesDB[0].long}
+  });
+  directionsDisplay.setMap(map);
+
+
+  calculateAndDisplayRoute(directionsService, directionsDisplay);
+}
+
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  var waypts = [];
+
+  for (var i = 1; i < placesDB.length; i++) {
+    waypts.push({
+      location: new google.maps.LatLng(placesDB[i].lat, placesDB[i].long),
+      stopover: true
+    });
+  }
+
+  directionsService.route({
+    origin: {lat: placesDB[0].lat, lng: placesDB[0].long},
+    destination: {lat: placesDB[placesDB.length-1].lat, lng: placesDB[placesDB.length-1].long},
+    waypoints: waypts,
+    optimizeWaypoints: false,
+    travelMode: google.maps.TravelMode.DRIVING
+  }, function(response, status) {
+    if (status === google.maps.DirectionsStatus.OK) {
+      directionsDisplay.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
   });
 }
 
