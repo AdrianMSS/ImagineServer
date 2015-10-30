@@ -94,10 +94,10 @@ function initMap() {
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   var waypts = [],
-    between = Math.floor(placesDB.length/9),
-    resultsFinal = [],
     num2 = 1;
   for (var i = 1;i < placesDB.length; i ++) {
+    console.log(i);
+    console.log(waypts);
     if(!(num2%10 === 0 || num2%10 ===1)){
       waypts.push({
         location: new google.maps.LatLng(placesDB[i].lat, placesDB[i].long),
