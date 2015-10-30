@@ -94,7 +94,8 @@ function initMap() {
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   var waypts = [],
-    num2 = 1;
+    num2 = 1,
+    wait = false;
   for (var i = 1;i < placesDB.length-2; i += 4) {
       while (wait) { /* Just wait. */ };
       waypts.push({
