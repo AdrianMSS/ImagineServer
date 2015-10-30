@@ -96,32 +96,35 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   var waypts = [],
     num2 = 1;
   for (var i = 1;i < placesDB.length-2; i += 4) {
-    waypts.push({
-      location: new google.maps.LatLng(placesDB[i].lat, placesDB[i].long),
-      stopover: true
-    });
-    waypts.push({
-      location: new google.maps.LatLng(placesDB[i+1].lat, placesDB[i+1].long),
-      stopover: true
-    });
-    var origin = {lat: placesDB[i-1].lat, lng: placesDB[i-1].long},
-      destination = {lat: placesDB[i+2].lat, lng: placesDB[i+2].long};
-      directionsService.route({
-      origin: origin,
-      destination: destination,
-      waypoints: waypts,
-      optimizeWaypoints: true,
-      travelMode: google.maps.TravelMode.DRIVING
-    }, function(response, status) {
-      if (status === google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(response);
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
-    });
-    console.log(i);
-    console.log(waypts);
-    waypts = [];
+      while (wait) { /* Just wait. */ };
+      waypts.push({
+        location: new google.maps.LatLng(placesDB[i].lat, placesDB[i].long),
+        stopover: true
+      });
+      waypts.push({
+        location: new google.maps.LatLng(placesDB[i+1].lat, placesDB[i+1].long),
+        stopover: true
+      });
+      var origin = {lat: placesDB[i-1].lat, lng: placesDB[i-1].long},
+        destination = {lat: placesDB[i+2].lat, lng: placesDB[i+2].long};
+        directionsService.route({
+        origin: origin,
+        destination: destination,
+        waypoints: waypts,
+        optimizeWaypoints: true,
+        travelMode: google.maps.TravelMode.DRIVING
+      }, function(response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+          wait = true;
+          setTimeout("wait = true", 2000);
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
+      console.log(i);
+      console.log(waypts);
+      waypts = [];
     /*console.log(i);
     console.log(waypts);
     if(!(num2%10 === 0 || num2%10 ===1)){
