@@ -81,7 +81,7 @@ function createMarker(place) {
 }*/
 function initMap() {
   var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
+  var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: false});
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 6,
     center: {lat: placesDB[0].lat, lng: placesDB[0].long}
@@ -94,35 +94,36 @@ function initMap() {
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   var waypts = [],
-    origin = {lat: placesDB[0].lat, lng: placesDB[0].long},
-    destination = {lat: placesDB[placesDB.length-1].lat, lng: placesDB[placesDB.length-1].long},
-    between = Math.floor(placesDB.length/9);
-  for (var i = between; waypts.length < 8; i += between) {
-    console.log(i);
-    waypts.push({
-      location: new google.maps.LatLng(placesDB[i].lat, placesDB[i].long),
-      stopover: true
-    });
-  }
-
-
-  console.log(origin);
-  console.log(destination);
-  console.log(waypts);
-
-  directionsService.route({
-    origin: origin,
-    destination: destination,
-    waypoints: waypts,
-    optimizeWaypoints: true,
-    travelMode: google.maps.TravelMode.DRIVING
-  }, function(response, status) {
-    if (status === google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
-    } else {
-      window.alert('Directions request failed due to ' + status);
+    between = Math.floor(placesDB.length/9),
+    resultsFinal = [],
+    num2 = 1;
+  for (var i = 1;i < placesDB.length; i ++) {
+    if(!(num2%10 === 0 || num2%10 ===1)){
+      waypts.push({
+        location: new google.maps.LatLng(placesDB[i].lat, placesDB[i].long),
+        stopover: true
+      });
     }
-  });
+    if(num2 === placesDB.length-1 || num2%10 === 0){
+      var num3 = num2 - num2%10,
+        origin = {lat: placesDB[num3].lat, lng: placesDB[num3].long},
+        destination = {lat: placesDB[num2].lat, lng: placesDB[num2].long};
+        directionsService.route({
+        origin: origin,
+        destination: destination,
+        waypoints: waypts,
+        optimizeWaypoints: true,
+        travelMode: google.maps.TravelMode.DRIVING
+      }, function(response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+        waypts = [];
+      });
+    }
+  }
 }
 
     </script>
