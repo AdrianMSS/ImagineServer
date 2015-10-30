@@ -106,6 +106,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
         location: new google.maps.LatLng(placesDB[i+1].lat, placesDB[i+1].long),
         stopover: true
       });
+      wait = true;
       var origin = {lat: placesDB[i-1].lat, lng: placesDB[i-1].long},
         destination = {lat: placesDB[i+2].lat, lng: placesDB[i+2].long};
         directionsService.route({
@@ -117,7 +118,6 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
       }, function(response, status) {
         if (status === google.maps.DirectionsStatus.OK) {
           directionsDisplay.setDirections(response);
-          wait = true;
           setTimeout("wait = true", 2000);
         } else {
           window.alert('Directions request failed due to ' + status);
