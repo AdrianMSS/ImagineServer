@@ -83,7 +83,7 @@ function calculateAndDisplayRoute(directionsService, num, markersShow) {
   }, function(response, status) {
     if (status === google.maps.DirectionsStatus.OK) {
       renderDirections(response, markersShow);
-      if(num<placesDB.length-1) setTimeout(calculateAndDisplayRoute, 2000, directionsService, num+1, true);
+      if(num<placesDB.length-2) setTimeout(calculateAndDisplayRoute, 2000, directionsService, num+1, true);
     } else {
       window.alert('Directions request failed due to ' + status);
     }
