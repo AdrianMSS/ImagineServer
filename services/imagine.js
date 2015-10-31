@@ -44,8 +44,10 @@ nmeaTOgps = function(pos, type){
     mop = -1;
   }
   if(type===1){
-    var dd = parseInt(pos[0+x]),
-      mm = parseFloat(pos.slice(1+x)),
+    var y=0;
+    if(pos.split('.')[0].length===3)y=1;
+    var dd = parseInt(pos[y+x]),
+      mm = parseFloat(pos.slice(y+1+x)),
       latitude = (dd + (mm / 60)) * mop;
       return latitude;
   }
