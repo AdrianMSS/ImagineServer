@@ -73,8 +73,8 @@ function calculateAndDisplayRoute(directionsService, num, markersShow) {
     if(placesDB.length-2==whileNum){ whileStop=false; console.log("final"); markersShow=false}
   }
   if(placesDB.length-num < 40){
-    console.log(num);
-    console.log(waypts);
+    console.log(placesDB[num].lat);
+    console.log(placesDB[num].long);
   }
   var origin = {lat: placesDB[numInit].lat, lng: placesDB[numInit].long},
     destination = {lat: placesDB[num].lat, lng: placesDB[num].long};
