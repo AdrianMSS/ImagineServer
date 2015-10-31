@@ -48,7 +48,7 @@ function initMap() {
   directionsDisplay.setMap(map);
 
 
-  calculateAndDisplayRoute(directionsService, 51, false);
+  calculateAndDisplayRoute(directionsService, 1, false);
 }
 
 function renderDirections(result, markersShow) {
@@ -72,7 +72,10 @@ function calculateAndDisplayRoute(directionsService, num, markersShow) {
     if(whileNum==8) whileStop=false;
     if(placesDB.length-2==whileNum){ whileStop=false; console.log("final"); markersShow=false}
   }
-  console.log(placesDB.length-num);
+  if(placesDB.length-num < 40){
+    console.log(num);
+    console.log(waypts);
+  }
   var origin = {lat: placesDB[numInit].lat, lng: placesDB[numInit].long},
     destination = {lat: placesDB[num].lat, lng: placesDB[num].long};
   directionsService.route({
