@@ -19,7 +19,8 @@
 /*var map;
 var infowindow;
 var placesNames = [];*/
-var placesDB = [];
+var placesDB = [],
+  map;
 
 function checkRoute(){
   var setHeader = function (req) {
@@ -40,19 +41,24 @@ function checkRoute(){
 function initMap() {
   var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: false});
-  var map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     zoom: 6,
     center: {lat: placesDB[0].lat, lng: placesDB[0].long}
   });
   directionsDisplay.setMap(map);
 
 
-  calculateAndDisplayRoute(directionsService, 1);
+  calculateAndDisplayRoute(directionsService, directionsDisplay, 1);
+}
+
+function renderDirections(result) {
+  var directionsRenderer = new google.maps.DirectionsRenderer;
+  directionsRenderer.setMap(map);
+  directionsRenderer.setDirections(result);
 }
 
 function calculateAndDisplayRoute(directionsService, num) {
-  var waypts = [],
-    directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: false});
+  var waypts = [];
   waypts.push({
     location: new google.maps.LatLng(placesDB[num].lat, placesDB[num].long),
     stopover: true
@@ -71,7 +77,8 @@ function calculateAndDisplayRoute(directionsService, num) {
     travelMode: google.maps.TravelMode.DRIVING
   }, function(response, status) {
     if (status === google.maps.DirectionsStatus.OK) {
-      directionsDisplay.setDirections(response);
+      renderDirections(response);
+      //directionsDisplay.setDirections(response);
       setTimeout(calculateAndDisplayRoute, 2000, directionsService, num+4);
     } else {
       window.alert('Directions request failed due to ' + status);
