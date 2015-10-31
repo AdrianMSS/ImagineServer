@@ -40,7 +40,7 @@ function checkRoute(){
 
 function initMap() {
   var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: true, suppressInfoWindows:true});
+  var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: false, suppressInfoWindows:true});
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
     center: {lat: placesDB[0].lat, lng: placesDB[0].long}
@@ -51,8 +51,8 @@ function initMap() {
   calculateAndDisplayRoute(directionsService, 1);
 }
 
-function renderDirections(result) {
-  var directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: true, suppressInfoWindows:true});
+function renderDirections(result, markersShow) {
+  var directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: markersShow, suppressInfoWindows:true});
   directionsRenderer.setMap(map);
   directionsRenderer.setDirections(result);
 }
@@ -60,7 +60,9 @@ function renderDirections(result) {
 function calculateAndDisplayRoute(directionsService, num) {
   var waypts = [],
     whileStop = true,
-    whileNum = 0;
+    whileNum = 0,
+    numInit = num,
+    markersShow = true;
   while(whileStop){
     waypts.push({
       location: new google.maps.LatLng(placesDB[num].lat, placesDB[num].long),
@@ -68,9 +70,10 @@ function calculateAndDisplayRoute(directionsService, num) {
     });
     num++;
     whileNum++;
-    if(whileNum==8 || placesDB.length-2==whileNum) whileStop=false;
+    if(whileNum==8) whileStop=false;
+    if(placesDB.length-2==whileNum){ whileStop=false; console.log("final"); markersShow=false}
   }
-  var origin = {lat: placesDB[num-9].lat, lng: placesDB[num-9].long},
+  var origin = {lat: placesDB[numInit].lat, lng: placesDB[numInit].long},
     destination = {lat: placesDB[num].lat, lng: placesDB[num].long};
   directionsService.route({
     origin: origin,
@@ -80,7 +83,7 @@ function calculateAndDisplayRoute(directionsService, num) {
     travelMode: google.maps.TravelMode.DRIVING
   }, function(response, status) {
     if (status === google.maps.DirectionsStatus.OK) {
-      renderDirections(response);
+      renderDirections(response, markersShow);
       if(num<placesDB.length-1) setTimeout(calculateAndDisplayRoute, 2000, directionsService, num+2);
     } else {
       window.alert('Directions request failed due to ' + status);
