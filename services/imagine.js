@@ -83,7 +83,8 @@ exports.newData = function(req,res) {
       var locations = places.results;
       //console.log(locations);
       var randLoc = locations[Math.floor(Math.random() * locations.length)];
-      resource['chanteCerca'] = randLoc.name;
+      if(randLoc !== undefined) {resource['chanteCerca'] = randLoc.name;}
+      else {resource['chanteCerca'] = 'Nada Conocido';}
       resource['lat'] = lat;
       resource['long'] = longi;
       db.collection('Imagine').insert(resource, function(err, doc){
