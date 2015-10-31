@@ -40,7 +40,7 @@ function checkRoute(){
 
 function initMap() {
   var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: false, suppressInfoWindows:true});
+  var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: false, suppressInfoWindows:false});
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
     center: {lat: placesDB[0].lat, lng: placesDB[0].long}
@@ -52,7 +52,7 @@ function initMap() {
 }
 
 function renderDirections(result, markersShow) {
-  var directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: markersShow, suppressInfoWindows:true});
+  var directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: markersShow, suppressInfoWindows:markersShow});
   directionsRenderer.setMap(map);
   directionsRenderer.setDirections(result);
 }
