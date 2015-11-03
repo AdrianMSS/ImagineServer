@@ -65,7 +65,7 @@ function calculateAndDisplayRoute(directionsService, num, markersShow) {
   while(whileStop){
     waypts.push({
       location: new google.maps.LatLng(placesDB[num].lat, placesDB[num].long),
-      stopover: false
+      stopover: true
     });
     num++;
     whileNum++;
