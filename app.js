@@ -34,6 +34,7 @@ app.use(bodyParser());
 //app.use('/hwthon2015', express.static(__dirname + '/hwthon2015'));
 app.use(express.static(__dirname + '/webpage'));
 app.use('/whatsnear', express.static(__dirname + '/whatsnear'));
+app.use('/javisstops', express.static(__dirname + '/javisstops'));
 
 app.get('/*', function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
@@ -41,6 +42,7 @@ app.get('/*', function(req, res, next) {
 });
 
 app.get('/whatsnear/pos', organizationImagine.getData);
+app.get('/javisstops/pos', organizationImagine.getData);
 app.get('/rentacar/pos', organizationImagine.getData);
 app.post('/rentacar/pos', organizationImagine.newData);
 
