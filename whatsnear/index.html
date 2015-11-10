@@ -52,7 +52,7 @@ function initMap() {
 }
 
 function renderDirections(result, markersShow) {
-  var directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: markersShow, suppressInfoWindows:markersShow});
+  var directionsRenderer = new google.maps.DirectionsRenderer({suppressMarkers: false, suppressInfoWindows:false});
   directionsRenderer.setMap(map);
   directionsRenderer.setDirections(result);
 }
@@ -82,7 +82,7 @@ function calculateAndDisplayRoute(directionsService, num, markersShow) {
     travelMode: google.maps.TravelMode.DRIVING
   }, function(response, status) {
     if (status === google.maps.DirectionsStatus.OK) {
-      renderDirections(response, markersShow);
+      renderDirections(response, false);
       if(num<placesDB.length-2) setTimeout(calculateAndDisplayRoute, 2000, directionsService, num+1, true);
     } else {
       window.alert('Directions request failed due to ' + status);
