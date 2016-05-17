@@ -60,13 +60,13 @@ nmeaTOgps = function(pos, type){
 }
 
 exports.newData = function(req,res) {
-  var resource = req.query;
+  var resource = req.body;
   resource['Date'] = new Date().addHours(-6);
 
   var key = 'AIzaSyBGuNB7PRusaF7JKSq-t_crKWKP6H3o3sg',
-    lat = nmeaTOgps(req.query.lat, 1),
-    longi = nmeaTOgps(req.query.long, 2),
-    v = req.query.v;
+    lat = nmeaTOgps(req.body.lat, 1),
+    longi = nmeaTOgps(req.body.long, 2),
+    v = req.body.v;
 
   var radius = 50;
 
