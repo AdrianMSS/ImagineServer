@@ -59,26 +59,7 @@ nmeaTOgps = function(pos, type){
   }
 }
 
-
-//POST- CREATE
-exports.newData = function(req, res) {
-    console.log(req.body);
-    var resource = req.body;
-    resource['date'] = new Date().addHours(-6);
-    resource['hour'] = new Date().addHours(-6).getHours();
-    resource['minute'] = new Date().addHours(-6).getMinutes();
-    db.collection('Imagine').insert(resource, function(error, doc_project){
-        if(error) {
-            throw error;
-            res.send(400, error);
-        }
-        else{
-            res.send(200, resource);
-        }
-    })
-}
-
-/*exports.newData = function(req,res) {
+exports.newData = function(req,res) {
   var resource = req.body;
   resource['Date'] = new Date().addHours(-6);
 
@@ -116,7 +97,7 @@ exports.newData = function(req, res) {
   }).on('error', function(e) {
     console.log("Got error: " + e.message);
   });
-}*/
+}
 
 
 /*exports.hourScript = function(){
