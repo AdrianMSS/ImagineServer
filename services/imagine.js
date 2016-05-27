@@ -59,6 +59,7 @@ nmeaTOgps = function(pos, type){
   }
 }
 
+
 exports.newData = function(req,res) {
   var resource = req.body;
   resource['Date'] = new Date().addHours(-6);
