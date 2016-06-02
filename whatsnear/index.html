@@ -43,7 +43,7 @@ function initMap() {
   var directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers: false, suppressInfoWindows:false});
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 3,
-    center: {lat: placesDB[0].lat, lng: placesDB[0].long}
+    center: {lat: placesDB[0].lat, lng: placesDB[0].lon}
   });
   directionsDisplay.setMap(map);
 
@@ -64,7 +64,7 @@ function calculateAndDisplayRoute(directionsService, num, markersShow) {
     numInit = num;
   while(whileStop){
     waypts.push({
-      location: new google.maps.LatLng(placesDB[num].lat, placesDB[num].long),
+      location: new google.maps.LatLng(placesDB[num].lat, placesDB[num].lon),
       stopover: true
     });
     num++;
@@ -72,8 +72,8 @@ function calculateAndDisplayRoute(directionsService, num, markersShow) {
     if(whileNum==8) whileStop=false;
     if(placesDB.length-2==num){ whileStop=false; console.log("final"); markersShow=false}
   }
-  var origin = {lat: placesDB[numInit].lat, lng: placesDB[numInit].long},
-    destination = {lat: placesDB[num].lat, lng: placesDB[num].long};
+  var origin = {lat: placesDB[numInit].lat, lng: placesDB[numInit].lon},
+    destination = {lat: placesDB[num].lat, lng: placesDB[num].lon};
   directionsService.route({
     origin: origin,
     destination: destination,

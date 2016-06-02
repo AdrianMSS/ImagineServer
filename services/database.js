@@ -13,6 +13,7 @@ var uristring =
   process.env.MONGOHQ_URL || 
   'mongodb://localhost/Hardwarethon';
 
+var db;
 
 mongo.MongoClient.connect(uristring, function(err, database) {
     if(!err) {
