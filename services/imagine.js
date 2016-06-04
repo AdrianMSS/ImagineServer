@@ -32,6 +32,14 @@ mongo.MongoClient.connect(uristring, function(err, database) {
 });
 
 
+exports.addSubscribe = function(req,res, email) {
+  var now = new Date().addHours(-6);
+  db.collection('Subscribe').update({_id:email}, {time:now}, {upsert: true, new: true},function(err, doc) {
+    if(err) res.send(400, err);
+    res.send(200, true);
+  });
+}
+
 exports.getData = function(req,res) {db.collection('Imagine').find({}, {_id:0}).toArray(function(err, doc){
       if(err) res.send(400, err);
       res.send(200, doc);
