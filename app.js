@@ -84,7 +84,7 @@ app.post('/email/', function (req, res) {
   });
 });
 
-/*app.post('/susbscribe/', function (req, res) {
+app.post('/susbscribe/', function (req, res) {
     var fecha = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
     mailOptions = {
     to: 'sesamaua@gmail.com', // receiver
@@ -100,7 +100,7 @@ app.post('/email/', function (req, res) {
       organizationImagine.addSubscribe(req, res, req.body.email);
     }
   });
-});*/
+});
 
 app.get('*', function (req, res) {
     res.redirect('../#home', 404);
