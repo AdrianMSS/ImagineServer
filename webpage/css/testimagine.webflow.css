@@ -100,7 +100,7 @@ header .header-content .header-content-inner p {
   margin-bottom: 10px;
   padding: 10px 10px;
   border-radius: 4px;
-  background-color: #e66700;
+  background-color: #007FBC;
   box-shadow: none;
   -webkit-transition: background-color 500ms ease;
   transition: background-color 500ms ease;
@@ -114,7 +114,7 @@ header .header-content .header-content-inner p {
   text-transform: uppercase;
 }
 .button:hover {
-  background-color: black;
+  background-color: #B2D235;
   box-shadow: none;
   color: white;
 }
@@ -340,7 +340,7 @@ header .header-content .header-content-inner p {
 .section-home {
   position: relative;
   height: 100%;
-  background-image: url('../images/imagineBackground.png');
+  background-image: url('../images/imagineBackground.jpg');
   background-position: 50% 0px;
   background-size: cover;
   background-repeat: repeat;
@@ -369,6 +369,13 @@ header .header-content .header-content-inner p {
   position: relative;
   height: auto;
   background-color: #00142f;
+}
+.w-section-contact {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  position: relative;
+  height: auto;
+  background-color: #ffffff;
 }
 .w-section-about {
   position: relative;
