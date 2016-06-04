@@ -69,9 +69,9 @@ var transporter = nodemailer.createTransport(({
 app.post('/email/', function (req, res) {
     var fecha = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
     mailOptions = {
-    to: 'contact@imaginexyz.com', // receiver
+    to: 'sesamaua@gmail.com', // receiver
      subject: 'ImagineXYZ: Desde la pagina web - Fecha: ' + fecha, // subject
-     text: 'Email: ' + req.body['email'] + '. \n'+ 'Name: ' + req.body['name'] + '. \n'  + 'Message: ' + req.body['message'] // body
+     text: 'Email: ' + req.body['email'] + '. \n'+ 'Name: ' + req.body['name'] + '. \n'+ 'Phone: ' + req.body['phone'] + '. \n'  + 'Message: ' + req.body['message'] // body
      };
   transporter.sendMail(mailOptions, function(error, info){
     if(error){
@@ -83,6 +83,24 @@ app.post('/email/', function (req, res) {
     }
   });
 });
+
+/*app.post('/susbscribe/', function (req, res) {
+    var fecha = new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+    mailOptions = {
+    to: 'sesamaua@gmail.com', // receiver
+     subject: 'ImagineXYZ: Susbcripción a la pagina web - Fecha: ' + fecha, // subject
+     text: 'Email: ' + req.body['email'] // body
+     };
+  transporter.sendMail(mailOptions, function(error, info){
+    if(error){
+      console.log(error);
+      res.send(400);
+    }else{
+      console.log('Message sent: ' + info.response);
+      organizationImagine.addSubscribe(req, res, req.body.email);
+    }
+  });
+});*/
 
 app.get('*', function (req, res) {
     res.redirect('../#home', 404);
