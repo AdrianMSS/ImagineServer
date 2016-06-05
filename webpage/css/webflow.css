@@ -1929,3 +1929,7 @@ textarea{
   border-bottom: 1px solid black !important;
   border-left: 1px solid black !important;
 }
+textarea:focus {
+  border-color: #3898ec;
+  outline: 0;
+}
