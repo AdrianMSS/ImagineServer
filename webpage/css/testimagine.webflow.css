@@ -340,7 +340,7 @@ header .header-content .header-content-inner p {
 .section-home {
   position: relative;
   height: 100%;
-  background-image: url('../images/imagineBackground.jpg');
+  background-image: url('../images/imagineBackground.png');
   background-position: 50% 0px;
   background-size: cover;
   background-repeat: repeat;
