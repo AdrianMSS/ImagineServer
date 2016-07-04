@@ -40,7 +40,14 @@ exports.addSubscribe = function(req,res, email) {
   });
 }
 
-exports.getData = function(req,res) {db.collection('Imagine').find({}, {_id:0}).toArray(function(err, doc){
+exports.getData = function(req,res) {
+  var options = {
+    "limit": 10,
+    "sort": [["_id",'desc']]
+  };
+
+  db.collection('Imagine').find({}, options).toArray(function(err, doc){
+      doc.reverse();
       if(err) res.send(400, err);
       res.send(200, doc);
   })
