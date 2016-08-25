@@ -20,9 +20,9 @@
 		// The month ranges from 0 to 11. I specify the month from 1 to 12 and manually subtract the 1.
 		// Thus the launchDay below denotes 7 December, 2014.
 		var launchDay = new Date(2016, 7, 8);
-		$('#timer').countdown({
+		/*$('#timer').countdown({
 			until: launchDay
-		});
+		});*/
 
 		// Add YouTube video background
 		var bgVideo = $('#bg-video');
