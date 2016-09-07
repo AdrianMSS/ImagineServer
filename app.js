@@ -45,6 +45,7 @@ app.get('/*', function(req, res, next) {
 app.get('/whatsnear/pos', organizationImagine.getData);
 app.get('/javisstops/pos', organizationImagine.getData);
 app.get('/rentacar/pos', organizationImagine.getData);
+app.get('/rentacar/last', organizationImagine.getLast);
 app.post('/rentacar/pos', organizationImagine.newData);
 
 
