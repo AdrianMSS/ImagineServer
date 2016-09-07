@@ -53,6 +53,18 @@ exports.getData = function(req,res) {
   })
 }
 
+exports.getLast = function(req,res) {
+  var options = {
+    "limit": 1,
+    "sort": [["_id",'desc']]
+  };
+
+  db.collection('Imagine').find({}, options).toArray(function(err, doc){
+      if(err) res.send(400, err);
+      res.send(200, doc[0]);
+  })
+}
+
 
 //POST- CREATE
 exports.newData = function(req, res) {
