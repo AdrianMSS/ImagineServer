@@ -4,7 +4,6 @@
 */
 
 var mongo = require('mongodb');
-var mongoose = require ("mongoose"); // The reason for this demo.
 
 // Here we find an appropriate database to connect to, defaulting to
 // localhost if we don't find one.  
@@ -14,12 +13,7 @@ var uristring =
   process.env.MONGOLAB_URI||
   'mongodb://localhost/Hardwarethon';
 
-var db;
-
-Date.prototype.addHours= function(h){
-    this.setHours(this.getHours()+h);
-    return this;
-}
+var db = {};
 
 mongo.MongoClient.connect(uristring, function(err, database) {
   if(!err) {
@@ -32,6 +26,17 @@ mongo.MongoClient.connect(uristring, function(err, database) {
 });
 
 
+Date.prototype.addHours= function(h){
+    this.setHours(this.getHours()+h);
+    return this;
+}
+
+exports.getData = function(req,res) {db.collection('Imagine').find({}, {_id:0}).toArray(function(err, doc){
+      if(err) res.send(400, err);
+      res.send(200, doc);
+  })
+}
+
 exports.addSubscribe = function(req,res, email) {
   var now = new Date().addHours(-6);
   db.collection('Subscribe').update({_id:email}, {time:now}, {upsert: true, new: true},function(err, doc) {
@@ -40,23 +45,8 @@ exports.addSubscribe = function(req,res, email) {
   });
 }
 
-exports.getData = function(req,res) {
-  var options = {
-    "limit": 10,
-    "sort": [["_id",'desc']]
-  };
-
-  db.collection('Imagine').find({}, options).toArray(function(err, doc){
-      doc.reverse();
-      if(err) res.send(400, err);
-      res.send(200, doc);
-  })
-}
-
-
 //POST- CREATE
 exports.newData = function(req, res) {
-    console.log(req.body);
     var resource = req.body;
     resource['date'] = new Date().addHours(-6);
     resource['hour'] = new Date().addHours(-6).getHours();
